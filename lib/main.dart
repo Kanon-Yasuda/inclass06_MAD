@@ -2,6 +2,7 @@
 // Student: [Your Full Name]
 // Date: September 26, 2026
 
+import 'dart:math' show pi, Random;
 import 'package:flutter/material.dart';
 
 void main() => runApp(const SmileyApp());
@@ -88,6 +89,23 @@ class SmileyPainter extends CustomPainter {
       ..strokeWidth = 4;
     canvas.drawCircle(center, radius, border);
   }
+// 3) Eyes
+final eyePaint = Paint()..color = Colors.black87;
+
+final eyeY = center.dy - radius * 0.18;
+final eyeDx = radius * 0.35;
+
+canvas.drawCircle(
+  Offset(center.dx - eyeDx, eyeY),
+  12,
+  eyePaint,
+);
+
+canvas.drawCircle(
+  Offset(center.dx + eyeDx, eyeY),
+  12,
+  eyePaint,
+);
 
   @override
   bool shouldRepaint(covariant SmileyPainter oldDelegate) {
