@@ -122,13 +122,37 @@ final mouthRect = Rect.fromCenter(
   height: radius * 0.6,
 );
 
-canvas.drawArc(
-  mouthRect,
-  0.15 * pi,
-  0.70 * pi,
-  false,
-  mouthPaint,
-);
+if (mood < 0.35) {
+  final frownRect = mouthRect.translate(
+    0,
+    radius * 0.25,
+  );
+
+  canvas.drawArc(
+    frownRect,
+    1.15 * pi,
+    0.70 * pi,
+    false,
+    mouthPaint,
+  );
+} else if (mood <= 0.7) {
+  canvas.drawArc(
+    mouthRect,
+    0.15 * pi,
+    0.55 * pi,
+    false,
+    mouthPaint,
+  );
+} else {
+  canvas.drawArc(
+    mouthRect,
+    0.15 * pi,
+    0.70 * pi,
+    false,
+    mouthPaint,
+  );
+}
+
 
   @override
   bool shouldRepaint(covariant SmileyPainter oldDelegate) {
