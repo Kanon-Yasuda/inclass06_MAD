@@ -76,6 +76,84 @@ class _DrawingPlaygroundState extends State<DrawingPlayground> {
   }
 }
 
+// In-Class Activity 06 — Drawing with Flutter
+// Student: [Your Full Name]
+// Date: September 26, 2026
+
+import 'dart:math' show pi, Random;
+import 'package:flutter/material.dart';
+
+void main() => runApp(const SmileyApp());
+
+class SmileyApp extends StatelessWidget {
+  const SmileyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Smiley Painter Lab',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
+        useMaterial3: true,
+      ),
+      home: const DrawingPlayground(),
+    );
+  }
+}
+
+class DrawingPlayground extends StatefulWidget {
+  const DrawingPlayground({super.key});
+
+  @override
+  State<DrawingPlayground> createState() => _DrawingPlaygroundState();
+}
+enum FaceType {
+  classic,
+  sleepy,
+  surprised,
+}
+
+class _DrawingPlaygroundState extends State<DrawingPlayground> {
+  // Drawing "state" — changing these + setState() triggers shouldRepaint
+  double mood = 0.8; // 0.0 sad → 1.0 happy
+  FaceType faceType = FaceType.classic;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('CustomPainter Smiley Lab')),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: CustomPaint(
+                size: const Size(300, 300),
+                painter: SmileyPainter(
+                  mood: mood,
+                  faceType: faceType,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('Mood: ${mood.toStringAsFixed(2)}'),
+                Slider(
+                  value: mood,
+                  onChanged: (double v) => setState(() => mood = v),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class SmileyPainter extends CustomPainter {
   SmileyPainter({required this.mood});
   final double mood;
@@ -179,3 +257,8 @@ if (mood < 0.35) {
     return oldDelegate.mood != mood;
   }
 }
+
+  @override
+  bool shouldRepaint(covariant SmileyPainter oldDelegate) {
+    return oldDelegate.mood != mood;
+  }
