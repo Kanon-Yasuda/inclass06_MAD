@@ -106,6 +106,29 @@ canvas.drawCircle(
   12,
   eyePaint,
 );
+// 4) Mouth
+final mouthPaint = Paint()
+  ..color = Colors.black87
+  ..style = PaintingStyle.stroke
+  ..strokeWidth = 5
+  ..strokeCap = StrokeCap.round;
+
+final mouthRect = Rect.fromCenter(
+  center: Offset(
+    center.dx,
+    center.dy + radius * 0.15,
+  ),
+  width: radius * 1.0,
+  height: radius * 0.6,
+);
+
+canvas.drawArc(
+  mouthRect,
+  0.15 * pi,
+  0.70 * pi,
+  false,
+  mouthPaint,
+);
 
   @override
   bool shouldRepaint(covariant SmileyPainter oldDelegate) {
