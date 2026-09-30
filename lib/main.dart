@@ -30,10 +30,16 @@ class DrawingPlayground extends StatefulWidget {
   @override
   State<DrawingPlayground> createState() => _DrawingPlaygroundState();
 }
+enum FaceType {
+  classic,
+  sleepy,
+  surprised,
+}
 
 class _DrawingPlaygroundState extends State<DrawingPlayground> {
   // Drawing "state" — changing these + setState() triggers shouldRepaint
   double mood = 0.8; // 0.0 sad → 1.0 happy
+  FaceType faceType = FaceType.classic;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,10 @@ class _DrawingPlaygroundState extends State<DrawingPlayground> {
             child: Center(
               child: CustomPaint(
                 size: const Size(300, 300),
-                painter: SmileyPainter(mood: mood),
+                painter: SmileyPainter(
+                  mood: mood,
+                  faceType: faceType,
+                ),
               ),
             ),
           ),
